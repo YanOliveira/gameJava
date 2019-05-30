@@ -12,8 +12,7 @@ import javax.swing.JFrame;
 public class Game extends Canvas implements Runnable{	
 	private final int WIDTH = 160;
 	private final int HEIGHT = 120;
-	private final int SCALE = 4;
-	
+	private final int SCALE = 4;	
 	private JFrame frame;
 	private Thread thread;	
 	private boolean isRunning;
