@@ -7,28 +7,25 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
-public abstract class Core extends Canvas implements Runnable{
-	protected final int WIDTH = 240;
-	protected final int HEIGHT = 160;
-	protected final int SCALE = 3;
+public abstract class Core extends Canvas implements Runnable{	
 	protected boolean isRunning;	
 	protected JFrame frame;
 	protected Thread thread;		
 	protected BufferedImage bufferedImage;	
 	protected BufferStrategy bufferStrategy;
 	
-	protected abstract void tick();
-	protected abstract void render();
+	protected abstract void updateComponentsToEachTick();
+	protected abstract void renderAllComponents();
 	
 	protected void initialSetup() {		
-		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
+		this.setPreferredSize(new Dimension(Config.WIDTH_SCALABLE, Config.HEIGHT_SCALABLE));
 		this.initFrame();					
-		bufferedImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		bufferedImage = new BufferedImage(Config.WIDTH, Config.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		thread = new Thread(this);		
 	}
 	
 	private void initFrame() {		
-		frame = new JFrame("Game #1");
+		frame = new JFrame(Config.NAME);
 		frame.add(this);
 		frame.setResizable(false);
 		frame.pack();
@@ -49,8 +46,8 @@ public abstract class Core extends Canvas implements Runnable{
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			if(delta >=1 ) {
-				this.tick();
-				this.render();
+				this.updateComponentsToEachTick();;
+				this.renderAllComponents();
 				frames++;
 				delta--;
 			}
