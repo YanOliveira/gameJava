@@ -14,25 +14,23 @@ public class Game extends Core{
 	private Spritesheet sheet;
 		
 	public Game() {	
-		super.initialSetup();
-		
-		/*
-		 * SPRITESHEET
-		 * */
+		super.initialSetup();			
+		this.setSpritesheet();		
+	}		
+	
+	private void setSpritesheet() {
 		sheet = new Spritesheet("/spritesheet.png");	
 		player = new BufferedImage[3];
 		for(int i=0; i <= 2; i++) {			
 			player[i] = sheet.getSprite(i*16, 0, 16, 16);
-		}				
-		/* ------------------------------------------------------------------------- */
-	}		
-	
+		}
+	}
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.start();
 	}			
 	
-	protected void updateGame() {
+	protected void tick() {
 		this.frames++;
 		if(this.frames >= this.maxFrames) {
 			this.frames = 0;

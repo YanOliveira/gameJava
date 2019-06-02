@@ -17,7 +17,7 @@ public abstract class Core extends Canvas implements Runnable{
 	protected BufferedImage bufferedImage;	
 	protected BufferStrategy bufferStrategy;
 	
-	protected abstract void updateGame();
+	protected abstract void tick();
 	protected abstract void render();
 	
 	protected void initialSetup() {		
@@ -49,7 +49,7 @@ public abstract class Core extends Canvas implements Runnable{
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			if(delta >=1 ) {
-				this.updateGame();
+				this.tick();
 				this.render();
 				frames++;
 				delta--;
